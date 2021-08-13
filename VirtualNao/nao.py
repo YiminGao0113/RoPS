@@ -140,12 +140,15 @@ def sayFeedback(winner, move_delay, bpm_difference, valid, tts):
     if winner == "Robot":
         robot_wins+=1
         tts.say(robot_winning_phrase[random.randint(0,len(robot_winning_phrase)-1)])
+        say(robot_winning_phrase[random.randint(0,len(robot_winning_phrase)-1)])
     elif winner == "Human":
         human_wins += 1
         tts.say(human_winning_phrase[random.randint(0,len(human_winning_phrase)-1)])
+        say(human_winning_phrase[random.randint(0,len(human_winning_phrase)-1)])
     elif winner == "Draw":
         draw += 1
         tts.say(draw_phrase[random.randint(0,len(draw_phrase)-1)])
+        say(draw_phrase[random.randint(0,len(draw_phrase)-1)])
     time.sleep(0.5)
 
     if (valid == "Valid"):
@@ -153,9 +156,11 @@ def sayFeedback(winner, move_delay, bpm_difference, valid, tts):
         ## move delay
         if move_delay == "Early":
             tts.say(move_early_phrase[random.randint(0,len(move_early_phrase)-1)])
+            say(move_early_phrase[random.randint(0,len(move_early_phrase)-1)])
             time.sleep(0.5)
         elif move_delay=="Late":
             tts.say(move_late_phrase[random.randint(0,len(move_late_phrase)-1)])
+            say(move_late_phrase[random.randint(0,len(move_late_phrase)-1)])
             time.sleep(0.5)
         else:
             delay_check=True
@@ -163,9 +168,11 @@ def sayFeedback(winner, move_delay, bpm_difference, valid, tts):
         ## bpm difference 
         if bpm_difference == "Fast" and delay_check==True:
             tts.say(bpm_faster_phrase[random.randint(0,len(bpm_faster_phrase)-1)])
+            say(bpm_faster_phrase[random.randint(0,len(bpm_faster_phrase)-1)])
             time.sleep(0.5)
         elif bpm_difference=="Slow" and delay_check==True:
             tts.say(bpm_slower_phrase[random.randint(0,len(bpm_slower_phrase)-1)])
+            say(bpm_slower_phrase[random.randint(0,len(bpm_slower_phrase)-1)])
             time.sleep(0.5)
 
         # if (move_delay== "Good" and bpm_difference == "Good"):
@@ -174,14 +181,19 @@ def sayFeedback(winner, move_delay, bpm_difference, valid, tts):
 
     elif (valid == "Early"):
         tts.say("You landed your move way too early")
+        say("You landed your move way too early")
     elif (valid == "Late"):
         tts.say("You landed your move way too late")
+        say("You landed your move way too late")
     elif (valid == "Fast"):
         tts.say("Your rhythm is way too fast")
+        say("Your rhythm is way too fast")
     elif (valid == "Slow"):
         tts.say("Your rhythm is way too slow")
+        say("Your rhythm is way too slow")
     else:
         tts.say("Opps, I am receving craps")
+        say("Opps, I am receving craps")
 
 def startSample():
     tts = ALProxy("ALTextToSpeech")
@@ -197,6 +209,8 @@ def req(url):
     
     return text
 
+def say(text):
+    subprocess.call(["python", "tts.py", text], shell=True)
 
 def main():
     tts = ALProxy("ALTextToSpeech")
@@ -216,6 +230,7 @@ def main():
     #############################
     # Greeting
     tts.say("Ready? ")
+    say("Ready?")
     time.sleep(1.0)
 
     #############################
@@ -233,16 +248,21 @@ def main():
     time.sleep(0.5)
     if (human_wins > robot_wins):
         tts.say(game_user_win_phrase[random.randint(0,len(game_user_win_phrase)-1)])
+        say(game_user_win_phrase[random.randint(0,len(game_user_win_phrase)-1)])
     elif (robot_wins > human_wins):
         tts.say(game_user_lose_phrase[random.randint(0,len(game_user_lose_phrase)-1)])
+        say(game_user_lose_phrase[random.randint(0,len(game_user_lose_phrase)-1)])
     else:
         tts.say("This game is a draw. ")
+        say("This game is a draw. ")
 
 def getSomeSnack():
     tts = ALProxy("ALTextToSpeech")
     tts.say("Amelia, Thank you so much for playing with me")
+    say("Amelia, Thank you so much for playing with me")
     time.sleep(1)
     tts.say("Please get some snack!")
+    say("Please get some snack!")
 
 
 if __name__ == "__main__":
